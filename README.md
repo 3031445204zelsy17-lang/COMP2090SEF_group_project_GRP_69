@@ -146,8 +146,9 @@ pytest tests/ -v
 
 ## Team
 
-- **Shi Yifan** (s1415343)
-- **Jeff Shaoqi** (s1409290)
+- **Shi Yifan** (14153433)
+- **Chen Rongan** (14092908)
+-  **Han Xiaoyu** (13798919)
 
 ---
 
