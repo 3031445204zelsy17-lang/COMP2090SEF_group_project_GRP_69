@@ -46,7 +46,7 @@ Enter numbers one by one, press Enter to finish.
 
 ## Task Overview
 
-### Task 1 (50%) — OOP Application
+### Task 1  — OOP Application
 
 An email management system for professors with automatic classification, AI-powered reply generation, and a web-based management panel.
 
@@ -60,7 +60,7 @@ An email management system for professors with automatic classification, AI-powe
 
 → See [task1/README.md](./task1/README.md) for full details.
 
-### Task 2 (30%) — Heap and Heap Sort
+### Task 2 — Heap and Heap Sort
 
 A Python implementation of Heap Sort using Max-Heap structure, with interactive number input and validation.
 
