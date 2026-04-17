@@ -63,5 +63,6 @@ task1/
 
 ## Team
 
-- **Shi Yifan** (s1415343) — Task 1 OOP application, backend, frontend, AI integration
-- **Jeff Shaoqi** (s1409290) — Task 2 Heap & Heap Sort, testing
+- **Shi Yifan** (14153433) — Task 1 OOP application, backend, frontend, AI integration
+- **Chen Rongan** (14092908) — Task 2 Heap & Heap Sort, testing
+- **Han Xiaoyu** (13798919) — Documentation, testing
