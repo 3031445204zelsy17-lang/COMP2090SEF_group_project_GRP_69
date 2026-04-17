@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-i18n-title="login_title">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 自动邮件回复系统</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 data-i18n="login_heading">📧 自动邮件回复系统</h1>
+                <p data-i18n="login_subtitle">智能邮件处理助手</p>
+            </div>
+
+            <div id="loginMessage" class="form-message" style="display:none;"></div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email" data-i18n="label_email">邮箱</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        data-i18n-placeholder="ph_email"
+                        placeholder="请输入邮箱"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password" data-i18n="label_password">密码</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        data-i18n-placeholder="ph_password"
+                        placeholder="请输入密码"
+                        required
+                    >
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-full" id="loginBtn" data-i18n="login_btn">
+                        登录
+                    </button>
+                </div>
+
+                <div class="form-footer">
+                    <p><span data-i18n="no_account">还没有账号？</span><a href="#" id="showRegister" data-i18n="register_link">注册</a></p>
+                </div>
+            </form>
+
+            <form id="registerForm" class="login-form" style="display: none;">
+                <div class="form-group">
+                    <label for="regName" data-i18n="label_name">姓名</label>
+                    <input
+                        type="text"
+                        id="regName"
+                        name="name"
+                        data-i18n-placeholder="ph_name"
+                        placeholder="请输入姓名"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="regEmail" data-i18n="label_email">邮箱</label>
+                    <input
+                        type="email"
+                        id="regEmail"
+                        name="email"
+                        data-i18n-placeholder="ph_reg_email"
+                        placeholder="请输入邮箱"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="regPassword" data-i18n="label_password">密码</label>
+                    <input
+                        type="password"
+                        id="regPassword"
+                        name="password"
+                        data-i18n-placeholder="ph_reg_password"
+                        placeholder="请输入密码（至少6位）"
+                        required
+                        minlength="6"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="regRole" data-i18n="label_role">角色</label>
+                    <select id="regRole" name="role" required>
+                        <option value="professor" data-i18n="role_professor">教授</option>
+                        <option value="student" data-i18n="role_student">学生</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-full" id="registerBtn" data-i18n="register_btn">
+                        注册
+                    </button>
+                </div>
+
+                <div class="form-footer">
+                    <p><span data-i18n="has_account">已有账号？</span><a href="#" id="showLogin" data-i18n="login_link">登录</a></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="login-footer">
+            <p>
+                <span data-i18n="footer">© 2026 自动邮件回复系统 - COMP2090 课程项目</span>
+                &nbsp;&middot;&nbsp;
+                <a href="#" onclick="toggleLang(); return false;" id="langToggle">EN</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="/js/lang.js?v=1.0.2"></script>
+    <script>
+        applyLang();
+        document.getElementById('langToggle').textContent = t('lang_toggle');
+    </script>
+    <script src="/js/api.js?v=1.0.2"></script>
+    <script src="/js/ui.js?v=1.0.2"></script>
+    <script>
+        const msgEl = document.getElementById('loginMessage');
+
+        function showMessage(text, type) {
+            msgEl.textContent = text;
+            msgEl.className = 'form-message ' + type;
+            msgEl.style.display = 'block';
+        }
+
+        function hideMessage() {
+            msgEl.style.display = 'none';
+        }
+
+        // 登录/注册切换
+        document.getElementById('showRegister').addEventListener('click', (e) => {
+            e.preventDefault();
+            hideMessage();
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            applyLang(); // re-apply after display toggle
+        });
+
+        document.getElementById('showLogin').addEventListener('click', (e) => {
+            e.preventDefault();
+            hideMessage();
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            applyLang(); // re-apply after display toggle
+        });
+
+        // 登录表单
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideMessage();
+            const btn = document.getElementById('loginBtn');
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            btn.disabled = true;
+            btn.textContent = t('login_loading');
+
+            try {
+                const result = await API.auth.login(email, password);
+                localStorage.setItem('user', JSON.stringify(result.user));
+                localStorage.setItem('token', result.access_token);
+                window.location.href = '/ui/index.html';
+            } catch (error) {
+                showMessage(t('login_fail') + error.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = t('login_btn');
+            }
+        });
+
+        // 注册表单
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideMessage();
+            const btn = document.getElementById('registerBtn');
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const role = document.getElementById('regRole').value;
+
+            btn.disabled = true;
+            btn.textContent = t('register_loading');
+
+            try {
+                await API.auth.register(name, email, password, role);
+                showMessage(t('register_success'), 'success');
+                document.getElementById('registerForm').style.display = 'none';
+                document.getElementById('loginForm').style.display = 'block';
+                applyLang();
+            } catch (error) {
+                showMessage(t('register_fail') + error.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = t('register_btn');
+            }
+        });
+    </script>
+</body>
+</html>

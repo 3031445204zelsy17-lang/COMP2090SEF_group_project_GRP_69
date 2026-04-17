@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-i18n-title="app_title">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动邮件回复系统</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 移动端顶部栏 -->
+        <div class="mobile-header">
+            <button class="btn btn-icon" id="menuToggle">&#9776;</button>
+            <h2 data-i18n="app_title">📧 邮件系统</h2>
+            <button class="btn btn-icon" id="logoutBtnMobile" data-i18n="logout">退出</button>
+        </div>
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2 data-i18n="app_title">📧 邮件系统</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-view="inbox">
+                    <span class="icon">📥</span>
+                    <span class="text" data-i18n="nav_inbox">收件箱</span>
+                    <span class="badge" id="pendingCount">0</span>
+                </a>
+                <a href="#" class="nav-item" data-view="sent">
+                    <span class="icon">📤</span>
+                    <span class="text" data-i18n="nav_sent">已发送</span>
+                </a>
+                <a href="#" class="nav-item" data-view="knowledge">
+                    <span class="icon">📚</span>
+                    <span class="text" data-i18n="nav_knowledge">资料源</span>
+                </a>
+                <a href="#" class="nav-item" data-view="stats">
+                    <span class="icon">📊</span>
+                    <span class="text" data-i18n="nav_stats">统计</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <span id="userName" data-i18n="user_label">用户</span>
+                    <button class="btn btn-sm" onclick="toggleLang()" id="langToggle">EN</button>
+                    <button class="btn btn-sm" id="logoutBtn" data-i18n="logout">退出</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main id="mainContent" class="main-content">
+            <!-- 内容由 app.js 动态生成 -->
+        </main>
+    </div>
+
+    <!-- 移动端侧边栏遮罩 -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- 新建邮件模态框 -->
+    <div class="modal" id="newEmailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="new_email_title">新建邮件</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="newEmailForm">
+                <div class="form-group">
+                    <label data-i18n="sender_email">发件人邮箱</label>
+                    <input type="email" id="newEmailSender" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="sender_name">发件人姓名</label>
+                    <input type="text" id="newEmailSenderName">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="email_subject">邮件主题</label>
+                    <input type="text" id="newEmailSubject" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="email_body">邮件内容</label>
+                    <textarea id="newEmailBody" rows="6" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary modal-cancel" data-i18n="cancel">取消</button>
+                    <button type="submit" class="btn btn-primary" data-i18n="submit">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 资料源编辑模态框 -->
+    <div class="modal" id="sourceModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="sourceModalTitle" data-i18n="source_modal_add">新增资料源</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="sourceForm">
+                <input type="hidden" id="sourceId">
+                <div class="form-group">
+                    <label data-i18n="source_title_label">标题</label>
+                    <input type="text" id="sourceTitle" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="source_content_label">内容</label>
+                    <textarea id="sourceContent" rows="10" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="source_keywords_label">关键词（用逗号分隔）</label>
+                    <input type="text" id="sourceKeywords" data-i18n-placeholder="source_keywords_ph" placeholder="例如：课程, 作业, 考试">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="source_category_label">分类</label>
+                    <select id="sourceCategory">
+                        <option value="" data-i18n="cat_none">无</option>
+                        <option value="academic" data-i18n="cat_academic">学术问题</option>
+                        <option value="administrative" data-i18n="cat_administrative">行政事务</option>
+                        <option value="faq" data-i18n="cat_faq">常见问题</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary modal-cancel" data-i18n="cancel">取消</button>
+                    <button type="submit" class="btn btn-primary" data-i18n="save">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/lang.js?v=1.0.3"></script>
+    <script>applyLang(); document.getElementById('langToggle').textContent = t('lang_toggle');</script>
+    <script src="/js/api.js?v=1.0.3"></script>
+    <script src="/js/ui.js?v=1.0.3"></script>
+    <script src="/js/app.js?v=1.0.3"></script>
+</body>
+</html>
