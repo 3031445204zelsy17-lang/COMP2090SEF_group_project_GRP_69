@@ -315,6 +315,8 @@ def main():
 
     # Initialize SQLite database
     db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "demo_data.db")
+    if os.path.exists(db_path):
+        os.remove(db_path)
     db = SqliteClient(db_path)
 
     # Swap database and LLM backends before any services are instantiated
