@@ -21,7 +21,8 @@ An intelligent email classification and auto-reply system (Task 1) with a self-l
 No API keys or internet required:
 
 ```bash
-cd task1
+git clone https://github.com/3031445204zelsy17-lang/COMP2090SEF_group_project_GRP_69.git
+cd COMP2090SEF_group_project_GRP_69/task1
 pip install -r requirements.txt
 python run_demo.py
 ```
@@ -46,7 +47,7 @@ Enter numbers one by one, press Enter to finish.
 
 ## Task Overview
 
-### Task 1  — OOP Application
+### Task 1 — OOP Application
 
 An email management system for professors with automatic classification, AI-powered reply generation, and a web-based management panel.
 
@@ -58,7 +59,7 @@ An email management system for professors with automatic classification, AI-powe
 
 **OOP concepts applied:** Abstraction, Inheritance, Polymorphism, Encapsulation, Composition, Strategy Pattern, Factory Pattern, Singleton Pattern
 
-→ See [task1/README.md](./task1/README.md) for full details.
+↗ See [task1/README.md](./task1/README.md) for full details.
 
 ### Task 2 — Heap and Heap Sort
 
@@ -70,7 +71,7 @@ A Python implementation of Heap Sort using Max-Heap structure, with interactive 
 - `heap_sort()` — O(n log n) in-place ascending sort
 - Interactive input with validation and error handling
 
-→ See [python Algorithms and Data Structures T2/README.md](./python%20Algorithms%20and%20Data%20Structures%20T2/README.md) for full details.
+↗ See [python Algorithms and Data Structures T2/README.md](./python%20Algorithms%20and%20Data%20Structures%20T2/README.md) for full details.
 
 ---
 
@@ -84,24 +85,25 @@ A Python implementation of Heap Sort using Max-Heap structure, with interactive 
 ## Repository Structure
 
 ```
-├── task1/                                    # Task 1: OOP Application
-│   ├── src/                                  #   Backend (FastAPI)
-│   │   ├── models/                           #     OOP classes
-│   │   ├── services/                         #     Business logic
-│   │   ├── api/                              #     REST API routes
-│   │   ├── db/                               #     Database (SQLite + Supabase)
-│   │   ├── llm/                              #     LLM integration (DeepSeek + Template)
-│   │   └── config/                           #     Configuration
-│   ├── tests/                                #   Unit tests (pytest)
-│   ├── ui/                                   #   Frontend (HTML/CSS/JS)
-│   ├── run_demo.py                           #   Offline demo launcher
-│   └── requirements.txt                      #   Python dependencies
+├── task1/                        # Task 1: OOP Application
+│   ├── src/                      #   Backend (FastAPI)
+│   │   ├── models/               #     OOP classes
+│   │   ├── services/             #     Business logic
+│   │   ├── api/                  #     REST API routes
+│   │   ├── db/                   #     Database (SQLite + Supabase)
+│   │   ├── llm/                  #     LLM integration (DeepSeek + Template)
+│   │   ├── config/               #     Configuration
+│   ├── tests/                    #   Unit tests (pytest)
+│   ├── ui/                       #   Frontend (HTML/CSS/JS)
+│   ├── run_demo.py               #   Offline demo launcher
+│   ├── .env.example              #   Environment variable template
+│   ├── requirements.txt          #   Python dependencies
 ├── python Algorithms and Data Structures T2/ # Task 2: Heap & Heap Sort
-│   ├── heap sort.py                          #   Heap Sort implementation
-│   └── README.md                             #   Algorithm documentation
-├── OOP_DESIGN.md                             # OOP design documentation
-├── USER_GUIDE.md                             # Detailed setup instructions
-└── README.md                                 # This file
+│   ├── heap sort.py              #   Heap Sort implementation
+│   ├── README.md                 #   Algorithm documentation
+├── OOP_DESIGN.md                 # OOP design documentation
+├── USER_GUIDE.md                 # Detailed setup instructions
+├── README.md                     # This file
 ```
 
 ---
