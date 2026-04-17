@@ -9,7 +9,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, RedirectResponse
 
 from .config import get_settings
 from .api import auth, emails, replies, knowledge, stats
@@ -82,17 +82,11 @@ async def ui_root():
     return FileResponse(str(ui_path / "login.html"), media_type="text/html")
 
 
-# Root path
+# Root path - redirect to login page
 @app.get("/")
 async def root():
-    """Root path - returns API information."""
-    return {
-        "name": "Automatic Email Reply System API",
-        "version": "1.0.0",
-        "docs": "/docs",
-        "redoc": "/redoc",
-        "ui": "/ui/login.html",
-    }
+    """Root path - redirect to login page."""
+    return RedirectResponse(url="/ui/login.html")
 
 
 # Health check
