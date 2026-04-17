@@ -72,6 +72,4 @@ tmp/
 temp/
 *.tmp
 
-# Claude Code
-.claude/
-CLAUDE.md
+
