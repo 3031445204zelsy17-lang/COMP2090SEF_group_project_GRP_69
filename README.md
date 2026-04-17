@@ -18,7 +18,7 @@ pip install -r requirements.txt
 python run_demo.py
 ```
 
-Then open **http://localhost:5000** in your browser.
+Then open **http://localhost:8000** in your browser.
 
 **Login credentials:**
 
